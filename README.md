@@ -1,0 +1,2 @@
+# CacheMeOutside
+ Centralized cache
