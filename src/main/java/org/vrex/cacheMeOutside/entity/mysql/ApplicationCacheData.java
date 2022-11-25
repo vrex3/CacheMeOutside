@@ -23,12 +23,14 @@ import org.vrex.cacheMeOutside.config.ApplicationConstants;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = ApplicationConstants.CACHE_DATA_SCHEMA)
-public class CacheData {
+@Table(name = ApplicationConstants.APPLICATION_CACHE_DATA)
+public class ApplicationCacheData {
 
     @Id
-    @GenericGenerator(name = "cache_id",
-            strategy = "org.vrex.cacheMeOutside.entity.mysql.CacheIdGenerator")
-    @GeneratedValue(generator = "cache_id")
+    @GenericGenerator(name = "application_cache_id",
+            strategy = "org.vrex.cacheMeOutside.entity.mysql.ApplicationCacheDataIdGenerator")
+    @GeneratedValue(generator = "application_cache_id")
+    @EqualsAndHashCode.Include
     private String id;
+
 }

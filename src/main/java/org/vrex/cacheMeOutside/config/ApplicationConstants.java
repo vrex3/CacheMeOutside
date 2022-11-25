@@ -6,5 +6,5 @@ public class ApplicationConstants {
         //enforces singleton pattern
     }
 
-    public static final String CACHE_DATA_SCHEMA = "CACHE_DATA";
+    public static final String APPLICATION_CACHE_DATA = "APPLICATION_CACHE_DATA";
 }
