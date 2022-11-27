@@ -1,10 +1,7 @@
 package org.vrex.cacheMeOutside.entity.mysql;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,5 +29,20 @@ public class ApplicationCacheData {
     @GeneratedValue(generator = "application_cache_id")
     @EqualsAndHashCode.Include
     private String id;
+
+    /**
+     * Create application entity
+     * Register applications in this app.
+     * Each application is registered as inidividual application
+     * Store application invite secrets here
+     * OR
+     * register this application
+     * treat applications using this app as users in Recognito
+     * lack of session management in recognito will deal with multiple instances of app logging on then
+     */
+    //private Application application;
+
+    @Column(name = "time_to_live", nullable = false)
+    private Integer ttl;
 
 }
