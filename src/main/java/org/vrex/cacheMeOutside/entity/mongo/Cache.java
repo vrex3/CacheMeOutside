@@ -27,15 +27,15 @@ public class Cache {
 
     @Indexed
     @EqualsAndHashCode.Include
-    private String name;
+    private String uuid;
 
     @EqualsAndHashCode.Include
     @Field("key")
     @Indexed
-    private JsonObject key;
+    private String key;
 
     @Field("value")
-    private JsonObject value;
+    private String value;
 
     /**
      * Should ideally expire document at timestamp mentioned here
@@ -43,4 +43,11 @@ public class Cache {
     @Field("lastUpdated")
     @Indexed(name = "expiry", expireAfterSeconds = 0)
     private LocalDateTime expireAt;
+
+    public Cache(String uuid, String key, String value, LocalDateTime expireAt) {
+        this.uuid = uuid;
+        this.key = key;
+        this.value = value;
+        this.expireAt = expireAt;
+    }
 }

@@ -7,10 +7,16 @@ public class ApplicationConstants {
     }
 
     /**
+     * APPLICATION CONSTANTS
+     */
+    public static final String DEFAULT_TIMEZONE = "UTC";
+
+    /**
      * DATABASE CONSTANTS
      */
     public static final String APPLICATION = "APPLICATION";
     public static final String APPLICATION_CACHE = "CMO_CACHE";
+    public static final String CACHE_METADATA = "CACHE_METADATA";
 
     /**
      * CACHE CONSTANTS

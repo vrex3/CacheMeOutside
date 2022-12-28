@@ -7,7 +7,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.util.ObjectUtils;
 import org.vrex.cacheMeOutside.config.ApplicationConstants;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Stores the properties of user defined caches
@@ -30,19 +34,23 @@ public class Application {
     @EqualsAndHashCode.Include
     private String id;
 
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @OneToMany(mappedBy = "application")
+    private Set<CacheMetadata> cache;
+
     /**
-     * Create application entity
-     * Register applications in this app.
-     * Each application is registered as inidividual application
-     * Store application invite secrets here
-     * OR
-     * register this application
-     * treat applications using this app as users in Recognito
-     * lack of session management in recognito will deal with multiple instances of app logging on then
+     * Adds new cache metadata to application
+     *
+     * @param cache
      */
-    //private Application application;
-
-    @Column(name = "time_to_live", nullable = false)
-    private Integer ttl;
-
+    public void addCache(CacheMetadata cache) {
+        if (ObjectUtils.isEmpty(this.cache))
+            this.cache = new HashSet<>();
+        this.cache.add(cache);
+    }
 }
