@@ -9,8 +9,8 @@ public class ApplicationConstants {
     /**
      * DATABASE CONSTANTS
      */
-    public static final String APPLICATION_CACHE_DATA = "APPLICATION_CACHE_DATA";
-    public static final String APPLICATION_CACHE = "APPLICATION_CACHE";
+    public static final String APPLICATION = "APPLICATION";
+    public static final String APPLICATION_CACHE = "CMO_CACHE";
 
     /**
      * CACHE CONSTANTS

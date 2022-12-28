@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Custom ID generator for cache
  */
-public class ApplicationCacheDataIdGenerator implements IdentifierGenerator {
+public class ApplicationIdGenerator implements IdentifierGenerator {
 
     /**
      * Generates a timestamp based UUID
