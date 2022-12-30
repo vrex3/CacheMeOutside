@@ -40,7 +40,8 @@ public class Application {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "application")
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "application")
     private Set<CacheMetadata> cache;
 
     /**

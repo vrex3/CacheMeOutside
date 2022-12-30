@@ -32,7 +32,7 @@ public class ApplicationConstants {
     public static final String EMPTY_CACHE_NAME = "No cache name found";
     public static final String INVALID_CACHE_IDENTIFIER = "Could not locate cache";
     public static final String EMPTY_CACHE_KEY = "No key found to save data";
-
+    public static final String DUPLICATE_CACHE = "Cache with same name already exists for application";
     public static final String INVALID_VALUE_SYNTAX = "Could not map value to provided syntax";
 
 

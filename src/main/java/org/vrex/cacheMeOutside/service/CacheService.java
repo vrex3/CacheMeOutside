@@ -15,6 +15,7 @@ import org.vrex.cacheMeOutside.dto.NewCacheRequest;
 import org.vrex.cacheMeOutside.entity.mongo.Cache;
 import org.vrex.cacheMeOutside.entity.mysql.Application;
 import org.vrex.cacheMeOutside.entity.mysql.CacheMetadata;
+import org.vrex.cacheMeOutside.recognito.Client;
 import org.vrex.cacheMeOutside.repository.ApplicationRepository;
 import org.vrex.cacheMeOutside.repository.CacheMetadataRepository;
 import org.vrex.cacheMeOutside.repository.CacheRepository;
@@ -40,6 +41,9 @@ public class CacheService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private Client recognitoClient;
 
     private final Gson mapper = new GsonBuilder().setPrettyPrinting().create();
 
@@ -69,6 +73,13 @@ public class CacheService {
             }
 
             Application application = applicationRequest.get();
+            if (application.getCache().contains(cacheName)) {
+                log.error("{} Cache {} already exists for app {}", ERROR_TEXT, cacheName, app);
+                throw ApplicationException.builder().
+                        errorMessage(ApplicationConstants.DUPLICATE_CACHE).
+                        status(HttpStatus.BAD_REQUEST).
+                        build();
+            }
             String cacheUUID = UUID.randomUUID().toString();
 
             log.info("{} Attempting to persist cache {} with UUID {} for app {}", LOG_TEXT, cacheName, cacheUUID, app);
@@ -84,6 +95,8 @@ public class CacheService {
             applicationRepository.saveAndFlush(application);
 
             log.info("{} Saved cache {} with UUID {} for app {}", LOG_TEXT, cacheName, cacheUUID, app);
+        } catch (ApplicationException exception) {
+            throw exception;
         } catch (Exception exception) {
             log.error("{} Adding cache {} for app {} -> {}", ERROR_TEXT, cacheName, app, exception);
             throw ApplicationException.builder().
@@ -98,10 +111,8 @@ public class CacheService {
      * Adds data (key-value) pair to specified cache name
      * TTL is handled by mongo - expiry decided by ttl attribute in cache metadata
      * Data is not persisted if value is null
-     * Mongo index ID is returned for saved data
      *
      * @param data
-     * @return
      */
     @Transactional
     @Async
@@ -127,7 +138,9 @@ public class CacheService {
                         AppUtil.currentTime().plusMinutes(metadata.getTtl()));
 
                 cacheData = cacheRepository.save(cacheData);
-                log.info("{} Added data to cache {} for app {} -> data ID : {}", LOG_TEXT, cacheName, app, response);
+                log.info("{} Added data to cache {} for app {}", LOG_TEXT, cacheName, app);
+            } catch (ApplicationException exception) {
+                throw exception;
             } catch (Exception exception) {
                 log.error("{} Adding data cache {} for app {} -> {}", ERROR_TEXT, cacheName, app, exception);
                 throw ApplicationException.builder().
@@ -166,6 +179,8 @@ public class CacheService {
             Cache cacheData = cacheRepository.findData(metadata.getUuid(), mapper.toJson(data.getKey()));
             if (!ObjectUtils.isEmpty(cacheData))
                 response = mapper.fromJson(cacheData.getValue(), type);
+        } catch (ApplicationException exception) {
+            throw exception;
         } catch (JsonSyntaxException exception) {
             log.error("{} Syntax error while extracting data cache {} for app {} -> {}", ERROR_TEXT, cacheName, app, exception);
             throw ApplicationException.builder().
