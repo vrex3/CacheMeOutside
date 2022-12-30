@@ -7,6 +7,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 @Slf4j
+/**
+ * Bean should be session scoped
+ * Store jsessionID once this app is authenticated with Recognito
+ * Log in with APP_USER role every time
+ * App-Admin login is only meant for manual logins
+ */
 public class Client {
 
     private final String LOG_TEXT = "RECOGNITO_CLIENT : ";
@@ -16,8 +22,6 @@ public class Client {
 
     @Autowired
     private RestTemplate restTemplate;
-
-
 
 
 }

@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.ObjectUtils;
+import org.vrex.cacheMeOutside.dto.NewAppRequest;
 import org.vrex.cacheMeOutside.utility.ApplicationConstants;
 
 import java.util.HashSet;
@@ -37,12 +38,18 @@ public class Application {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "application")
     private Set<CacheMetadata> cache;
+
+    public Application(NewAppRequest request) {
+        this.name = request.getName();
+        this.email = request.getEmail();
+        this.cache = new HashSet<>();
+    }
 
     /**
      * Adds new cache metadata to application

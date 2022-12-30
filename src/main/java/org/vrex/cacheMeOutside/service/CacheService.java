@@ -94,6 +94,12 @@ public class CacheService {
             application.addCache(cacheMetadata);
             applicationRepository.saveAndFlush(application);
 
+            /**
+             * Add call to recognito to add cache name as resource for app
+             * and the following roles -> APP_USER, APP_DEVELOPER, APP_ADMIN
+             * Description can be something like 'cache name for CMO app UUID"
+             */
+
             log.info("{} Saved cache {} with UUID {} for app {}", LOG_TEXT, cacheName, cacheUUID, app);
         } catch (ApplicationException exception) {
             throw exception;
