@@ -1,7 +1,5 @@
 package org.vrex.cacheMeOutside.utility;
 
-import org.vrex.cacheMeOutside.config.ApplicationConstants;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 

@@ -12,9 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.springframework.stereotype.Repository;
-import org.vrex.cacheMeOutside.config.ApplicationConstants;
+import org.vrex.cacheMeOutside.utility.ApplicationConstants;
 
 import java.time.LocalDateTime;
 

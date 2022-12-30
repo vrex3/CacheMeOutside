@@ -5,12 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.bson.json.JsonObject;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import org.vrex.cacheMeOutside.config.ApplicationConstants;
+import org.vrex.cacheMeOutside.utility.ApplicationConstants;
 
 import java.time.LocalDateTime;
 

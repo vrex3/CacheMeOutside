@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.util.ObjectUtils;
-import org.vrex.cacheMeOutside.config.ApplicationConstants;
+import org.vrex.cacheMeOutside.utility.ApplicationConstants;
 
 import java.util.HashSet;
 import java.util.Set;
